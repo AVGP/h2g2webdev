@@ -1,0 +1,64 @@
+## Week 2: Primitives and objects
+
+The ECMAScript specification knows the following types of data:
+
+* `undefined`
+* `null`
+* `Boolean` (`true` and `false`)
+* `Number`
+* `String`
+* `Object`
+* `((Symbol))` (since ((ECMAScript 6)))
+
+All of them _except for Object_ are so-called *((primitives))*. ((Objects)) aren't primitives but a collection of properties (i.e. key-value pairs).
+For example:
+
+[source,javascript]
+----
+var obj = {
+  name: 'Bob', <1>
+  friends: [ <2>
+    { name: 'Alice' } <3>
+  ]
+}
+----
+<1> Here `name` is the *key* and `'Bob'` is the associated value.
+<2> Values can be complex, such as an Array.
+<3> Objects can also hold other objects.
+
+There is an important difference between primitives and objects as the following sample shows:
+
+[source,javascript]
+----
+var a = 1
+var c = { x: 1 }
+
+var b = a
+var d = c
+
+b++
+d.x++
+
+console.log(a, b, c.x, d.x)
+----
+
+1. We created two variables `a` with a primitive value and `c` with an object value.
+2. We then created two more variables `b` and `d` and assigned them the values of `a` and `d`, respectively.
+3. We then incremented the value of `b` and the value of the `x` property in `d`.
+
+(((Reference)))
+The output is `1 2 2 2` and not `1 2 1 2` as we might have expected.
+This happens because primitive values are being *copied* on assignment (`var b = a` copied the value) 
+while objects are being *referenced* on assignment (`var d = c` points `d` to the object that `c` holds).
+
+In order to avoid this, we can sometimes use the detour via `JSON.stringify` and `JSON.parse`:
+
+[source,javascript]
+----
+var a = { x: 1 }
+var b = JSON.parse(JSON.stringify(a))
+
+b.x++
+console.log(a.x, b.x)
+----
+

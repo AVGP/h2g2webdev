@@ -1,0 +1,18 @@
+= The hitchhiker's guide to web development
+:toc:
+:source-highlighter: coderay
+:sourcedir: samples
+:imagesdir: images
+:icons: font
+:coderay-css: style
+:pagenums:
+
+include::week1.adoc[]
+
+include::week2.adoc[]
+
+[index]
+Glossary
+--------
+
+
